@@ -26,9 +26,9 @@ const (
 	LoadFileModeAppendPlay = "append-play" // Starts if nothing is playing
 )
 
-// Loadfile loads a file, it either replaces the currently playing file `LOAD_REPLACE`,
-// appends to the current playlist `LOAD_APPEND` or appends to playlist and plays if
-// nothing is playing right now `LOAD_APPEND_PLAY`
+// Loadfile loads a file, it either replaces the currently playing file (LoadFileModeReplace),
+// appends to the current playlist (LoadFileModeAppend) or appends to playlist and plays if
+// nothing is playing right now (LoadFileModeAppendPlay)
 func (c *Client) Loadfile(path string, mode string) error {
 	_, err := c.Exec("loadfile", path, mode)
 	return err
@@ -41,6 +41,7 @@ const (
 )
 
 // Seek seeks to a position in the current file.
+// Use mode to seek relative to current position (SeekModeRelative) or absolute (SeekModeAbsolute).
 func (c *Client) Seek(n int, mode string) error {
 	_, err := c.Exec("seek", strconv.Itoa(n), mode)
 	return err
@@ -64,8 +65,8 @@ const (
 	LoadListModeAppend  = "append"
 )
 
-// LoadList loads a playlist from path. It can either replace the current playlist `LOADLIST_REPLACE`
-// or append to the current playlist `LOADLIST_APPEND`.
+// LoadList loads a playlist from path. It can either replace the current playlist (LoadListModeReplace)
+// or append to the current playlist (LoadListModeAppend).
 func (c *Client) LoadList(path string, mode string) error {
 	_, err := c.Exec("loadlist", path, mode)
 	return err

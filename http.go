@@ -23,8 +23,10 @@ type httpServerHandler struct {
 // 		http.Handle("/mpv", mpv.HTTPHandler(lowlevelclient)
 //
 // Use api:
-// POST http://host/lowlevel `{ "command": ["get_property", "fullscreen"] }`
-// Result:`{"error":"success","data":false}`
+// 		POST http://host/lowlevel Body: { "command": ["get_property", "fullscreen"] }
+//
+// Result:
+// 		{"error":"success","data":false}
 func HTTPServerHandler(client LLClient) http.Handler {
 	return &httpServerHandler{
 		llclient: client,
